@@ -13,6 +13,7 @@
 		F2D005BF259AEFA800F9D985 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2D005BD259AEFA800F9D985 /* Main.storyboard */; };
 		F2D005CB259AEFA900F9D985 /* DrinkWaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005CA259AEFA900F9D985 /* DrinkWaterTests.swift */; };
 		F2D005D6259AEFA900F9D985 /* DrinkWaterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005D5259AEFA900F9D985 /* DrinkWaterUITests.swift */; };
+		F2D005ED259B0B8600F9D985 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005EC259B0B8600F9D985 /* WaterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		F2D005D1259AEFA900F9D985 /* DrinkWaterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrinkWaterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D005D5259AEFA900F9D985 /* DrinkWaterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkWaterUITests.swift; sourceTree = "<group>"; };
 		F2D005D7259AEFA900F9D985 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2D005EC259B0B8600F9D985 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D005B7259AEFA700F9D985 /* AppDelegate.swift */,
+				F2D005EC259B0B8600F9D985 /* WaterViewController.swift */,
 				F2D005B9259AEFA700F9D985 /* ViewController.swift */,
 				F2D005BB259AEFA800F9D985 /* Assets.xcassets */,
 				F2D005BD259AEFA800F9D985 /* Main.storyboard */,
@@ -255,6 +258,7 @@
 			files = (
 				F2D005BA259AEFA700F9D985 /* ViewController.swift in Sources */,
 				F2D005B8259AEFA700F9D985 /* AppDelegate.swift in Sources */,
+				F2D005ED259B0B8600F9D985 /* WaterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +435,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.the.pulk.DrinkWater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -452,6 +457,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.the.pulk.DrinkWater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
