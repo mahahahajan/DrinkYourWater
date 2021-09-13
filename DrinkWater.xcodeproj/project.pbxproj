@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2899ACE259BF7BD002D679B /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2899ACD259BF7BD002D679B /* PrefsViewController.swift */; };
 		F2D005B8259AEFA700F9D985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005B7259AEFA700F9D985 /* AppDelegate.swift */; };
 		F2D005BA259AEFA700F9D985 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005B9259AEFA700F9D985 /* ViewController.swift */; };
 		F2D005BC259AEFA800F9D985 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2D005BB259AEFA800F9D985 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2899ACD259BF7BD002D679B /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		F2D005B4259AEFA700F9D985 /* DrinkWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D005B7259AEFA700F9D985 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2D005B9259AEFA700F9D985 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				F2D005B7259AEFA700F9D985 /* AppDelegate.swift */,
 				F2D005EC259B0B8600F9D985 /* WaterViewController.swift */,
+				F2899ACD259BF7BD002D679B /* PrefsViewController.swift */,
 				F2D005B9259AEFA700F9D985 /* ViewController.swift */,
 				F2D005BB259AEFA800F9D985 /* Assets.xcassets */,
 				F2D005BD259AEFA800F9D985 /* Main.storyboard */,
@@ -259,6 +262,7 @@
 				F2D005BA259AEFA700F9D985 /* ViewController.swift in Sources */,
 				F2D005B8259AEFA700F9D985 /* AppDelegate.swift in Sources */,
 				F2D005ED259B0B8600F9D985 /* WaterViewController.swift in Sources */,
+				F2899ACE259BF7BD002D679B /* PrefsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,8 +430,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DrinkWater/DrinkWater.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = L4AT2E4M4Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DrinkWater/Info.plist;
@@ -448,8 +454,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DrinkWater/DrinkWater.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = L4AT2E4M4Z;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DrinkWater/Info.plist;

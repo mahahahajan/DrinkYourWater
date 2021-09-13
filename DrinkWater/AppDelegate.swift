@@ -8,27 +8,27 @@
 import Cocoa
 
 @main
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     let popover = NSPopover()
     
     
-    @objc func printQuote(_ sender: Any?) {
-      let quoteText = "Never put off until tomorrow what you can do the day after tomorrow."
-      let quoteAuthor = "Mark Twain"
-      
-      print("\(quoteText) — \(quoteAuthor)")
-    }
-    func constructMenu() {
-      let menu = NSMenu()
-
-      menu.addItem(NSMenuItem(title: "Print Quote", action: #selector(AppDelegate.printQuote(_:)), keyEquivalent: "P"))
-      menu.addItem(NSMenuItem.separator())
-      menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-
-      statusItem.menu = menu
-    }
+//    @objc func printQuote(_ sender: Any?) {
+//      let quoteText = "Never put off until tomorrow what you can do the day after tomorrow."
+//      let quoteAuthor = "Mark Twain"
+//
+//      print("\(quoteText) — \(quoteAuthor)")
+//    }
+//    func constructMenu() {
+//      let menu = NSMenu()
+//
+//      menu.addItem(NSMenuItem(title: "Print Quote", action: #selector(AppDelegate.printQuote(_:)), keyEquivalent: "P"))
+//      menu.addItem(NSMenuItem.separator())
+//      menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+//
+//      statusItem.menu = menu
+//    }
     
     @objc func togglePopover(_ sender: Any?) {
 //        popover.behavior = .transient
@@ -62,6 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentViewController = WaterViewController.freshController()
         popover.behavior = .transient
 //        constructMenu()
+        NSUserNotificationCenter.default.delegate = self
+        
+        //Application is launched, start the timer that will send the notifications
+        var waterReminderTimer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(WaterViewController.sendNotif), userInfo: nil, repeats: true)
 
     }
 
@@ -69,7 +73,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
-    
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+            return true
+    }
 
 }
 

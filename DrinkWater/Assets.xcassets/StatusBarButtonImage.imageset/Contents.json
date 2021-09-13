@@ -5,7 +5,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "StatusBarButtonImage@2x.png",
+      "filename" : "file-water-drop-icon-11562999673784yomxqko.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -19,6 +19,9 @@
     "version" : 1
   },
   "properties" : {
+    "auto-scaling" : "auto",
+    "localizable" : true,
+    "preserves-vector-representation" : true,
     "template-rendering-intent" : "template"
   }
 }
