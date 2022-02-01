@@ -8,52 +8,61 @@
 import Cocoa
 import Foundation
 
-class WaterViewController: NSViewController {
+let testTime = 15.0;
+let minute = 60.0;
+let hour = minute * 60;
+var windowHeight: CGFloat = 100;
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
+
+class WaterViewController: NSViewController, NSWindowDelegate {
+
+
+    var prefs: Preferences!
+    //Set this up later
+    var cupCount = 0
+    
     @IBOutlet var countLabel: NSTextField!
     
     
-    @objc func sendNotif(){
-        let notification = NSUserNotification()
-        notification.identifier = String(Int.random(in: 1...100))
-        notification.title = "Reminder: Water"
-    //        notification.subtitle = "This is a reminder"
-        notification.informativeText = "Drink your water!"
-        
-        notification.soundName = NSUserNotificationDefaultSoundName
-        notification.deliveryRepeatInterval?.hour = 60
-        notification.contentImage = NSImage(byReferencingFile: "water-glass.png")
-        // Manually display the notification
-        let notificationCenter = NSUserNotificationCenter.default
-    //        notificationCenter.obser
-        notificationCenter.deliver(notification)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+        countLabel.intValue = Int32(Preferences.cupCount);
     }
-}
+    
+    override func viewDidAppear() {
+        countLabel.intValue = Int32(Preferences.cupCount)
+    }
+    
+    func setPrefs(myPrefs: Preferences){
+//        print("set my prefs first")
+        prefs = myPrefs
+    }
 
+}
 
 
 extension WaterViewController{
     
     @IBAction func sub(sender: NSButton){
         print("Sub")
-        if(countLabel.intValue > 0){
-            countLabel.intValue = (countLabel.intValue - 1)
+        if(Preferences.cupCount > 0){
+            Preferences.cupCount -= 1
+            countLabel.intValue = Int32(Preferences.cupCount)
         }
     }
     @IBAction func add(sender: NSButton){
         print("Add")
-        countLabel.intValue = (countLabel.intValue + 1)
+        Preferences.cupCount += 1
+        countLabel.intValue = Int32(Preferences.cupCount)
     }
-    @IBAction func prefs(sender: NSButton){
+    @IBAction func prefButton(sender: NSButton){
         print("Prefs")
     }
     @IBAction func about(sender: NSButton){
-        print("About")
-        sendNotif()
+        print("About (Test for now)")
+//        var waterReminderTimer = Timer.scheduledTimer(timeInterval: testTime, target: self, selector: #selector(WaterViewController.sendNotif), userInfo: nil, repeats: true)
+//        sendNotif()
     }
     @IBAction func quit(sender: NSButton){
         print("Quit")
@@ -63,7 +72,7 @@ extension WaterViewController{
 
 extension WaterViewController {
   // MARK: Storyboard instantiation
-  static func freshController() -> WaterViewController {
+    static func freshController() -> WaterViewController {
     //1.
     let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
     //2.
