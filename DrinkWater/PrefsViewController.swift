@@ -4,7 +4,6 @@
 //
 //  Created by Pulkit Mahajan on 12/29/20.
 //
-
 import Cocoa
 
 class PrefsViewController: NSViewController, NSWindowDelegate {
@@ -17,6 +16,7 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
     var reminderTimer: Timer!
     var notifRadioButtons: [NSButton]!
     var notifTypeNumberHolder: Int!
+    var notificationPeriodChanged = 0
     
     //TODO: Notification wont show up if preferences is open
     
@@ -49,8 +49,28 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
             screen = tempScreen
         }
         // Do view setup here.
+//        print("Level is: " , self.view.window?.level)
+//        self.view.window?.level = .normal
+//        self.overlayWindow?.level = .floating
+        notificationPeriodChanged = 0
         notifRadioButtons = [nonIntrusiveSwitch, intrusiveSwitch, bothSwitch]
         loadPrefs()
+    }
+    
+    override func viewDidAppear() {
+        for window in NSApplication.shared.windows {
+            if(window.title == "Preferences"){
+                notificationPeriodChanged = 0
+                window.level = .normal
+                window.update()
+//                window.close()
+            }
+            if(window.title == ""){
+                window.makeFirstResponder(window.firstResponder)
+                window.makeKeyAndOrderFront(nil)
+                window.makeKey()
+            }
+        }
     }
     
     func loadPrefs() {
@@ -90,26 +110,27 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         showIconCheckbox.integerValue = showAppIconHolder
         showIconCheckbox.isHighlighted = false
         showIconCheckbox.refusesFirstResponder = true
+       
+    }
+    
+    @objc func userHitChugButton(_ sender: NSButton){
+        closeOverlay(myWindow: overlayWindow)
+//        Preferences.cupCount += 1
+    }
+    
+    @objc func userDrankButton() {
+        print("HELLO WORLD")
+        print("User Drank Water button")
+        //TODO:Close Overlay
+        //TODO: Update count
+        //Update other information?
+        //TODO: Play Sound
+//        let senderButton = sender as! NSButton
+        closeOverlay(myWindow: overlayWindow)
+        Preferences.cupCount += 1
     }
     
     
-    func setReminderTime() {
-        
-        print(unitsControl.selectedItem!.title)
-        
-        let currUnit = unitsControl.selectedItem!.title
-        
-        switch currUnit {
-        case "hours":
-            Preferences.reminderTime = reminderTimeValueHolder * 3600
-        case "min":
-            Preferences.reminderTime = reminderTimeValueHolder * 60
-        default:
-            Preferences.reminderTime = reminderTimeValueHolder
-        }
-        //TODO: Change timer
-        setTimer(time: Preferences.reminderTime)
-    }
     
     @objc func updateResetTimer() {
         
@@ -123,15 +144,6 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         let components = DateComponents(calendar: calendar, hour: Int(resetTimePieces[0]), minute: Int(resetTimePieces[1]))
         let nextResetTime = calendar.nextDate(after: now, matching: components, matchingPolicy: .nextTime)!
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
-    //        dateFormatter.dateStyle = .medium
-        dateFormatter.timeZone = TimeZone.current
-        let formattedDate = dateFormatter.string(from: nextResetTime)
-        
-//        print("Next reset time is : ", formattedDate )
-        
-    //        let clearCupCountTimer = Timer.init(fireAt: <#T##Date#>, interval: <#T##TimeInterval#>, target: <#T##Any#>, selector: <#T##Selector#>, userInfo: <#T##Any?#>, repeats: <#T##Bool#>)/
         
         //TODO: Set this back to 24 hours
     //        let resetTimer = Timer.scheduledTimer(timeInterval: 4, target: waterViewController!, selector: #selector(waterViewController.clearCups), userInfo: nil, repeats: true)
@@ -161,8 +173,8 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
     }
     
     @objc func sendNotif(){
-//        print("Notif text is: ", Preferences.notifText)
-        
+        print("Notif type is (Send Notif): ", Preferences.notifTypeNum)
+//        print("Sender is: " , sender)
         switch(Preferences.notifTypeNum){
         case 1:
             createSmallNotif()
@@ -174,9 +186,6 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         default:
             break;
         }
-        
-//        createSmallNotif()
-//        createOverlay()
     }
     
     @objc func createSmallNotif(){
@@ -184,6 +193,16 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         notification.title = Preferences.notifText
     //        notification.subtitle = "This is a reminder"
         notification.informativeText = Preferences.subText
+        notification.hasReplyButton = false
+        notification.hasActionButton = true
+        notification.otherButtonTitle = "Close"
+        notification.actionButtonTitle = "Chug"
+        
+        var actions = [NSUserNotificationAction]()
+        let action1 = NSUserNotificationAction(identifier: "action1", title: "Action 1")
+        actions.append(action1)
+        
+        notification.additionalActions = actions
         
         notification.soundName = NSUserNotificationDefaultSoundName
 //        notification.deliveryRepeatInterval?.hour = 60
@@ -195,37 +214,21 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
     }
     
     
+    
     @objc func closeOverlay(myWindow: NSWindow){
         myWindow.close()
     }
     
-    @objc func userDrankButton(sender: Any) {
-        print("User Drank Water button")
-        //TODO:Close Overlay
-        //TODO: Update count
-        //Update other information?
-        //TODO: Play Sound
-//        let senderButton = sender as! NSButton
-        closeOverlay(myWindow: overlayWindow)
-        Preferences.cupCount += 1
-    }
-    
-    @objc func createOverlay(){
+    func createOverlay(){
         
-        let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 0, height: 0), styleMask: [.titled, .closable], backing: .buffered, defer: true)
+        let window = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 0, height: 0), styleMask: [.borderless, .titled, .closable], backing: .buffered, defer: false)
         if(overlayWindow != nil){
             closeOverlay(myWindow: overlayWindow)
         }
         overlayWindow = window
+        
         self.view.wantsLayer = true;
         window.contentView?.wantsLayer = true;
-        
-//        let imageView = NSImageView()
-            /* Set image property and replace name with your image file's name */
-//        imageView.image = NSImage(named: "water-glass")
-//        window.contentView?.layer?.contents = NSImage(named: "reminder")
-//        window.contentView?.addSubview(imageView)
-        
         //window.backgroundColor = .init(red: 0, green: 173/255, blue: 1, alpha: 1)
         window.backgroundColor = .init(red: 30/255, green: 180/255, blue: 233/255, alpha: 1)
         
@@ -238,11 +241,51 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         //THIS LINE STOPS THE CRASH ON CLOSE
         window.isReleasedWhenClosed = false
         window.setFrame(NSRect(x:0, y: 0, width: screen.visibleFrame.width, height: screen.visibleFrame.height ), display: true, animate: true)
-            
+        
+        let imageView = NSImageView(frame: window.frame)
+        imageView.frame = CGRect(x: Int(window.frame.width * 17/48), y: Int(window.frame.height * 3/12), width: 450, height: 450)
+//             Set image property and replace name with your image file's name
+        imageView.image = NSImage(named: "water-glass")
+        if ( 0 <= Preferences.cupCount && Preferences.cupCount < 3){
+            imageView.image = NSImage(named: "smallWater")
+//            window.contentView?.layer?.contents = NSImage(named: "smallWater")
+        }
+        else if ( 3 <= Preferences.cupCount && Preferences.cupCount < 7){
+            imageView.image = NSImage(named: "medWater")
+//            window.contentView?.layer?.contents = NSImage(named: "smallWater")
+        }
+        else {
+            imageView.image = NSImage(named: "bigWater")
+//            window.contentView?.layer?.contents = NSImage(named: "smallWater")
+        }
+        
+//        window.contentView?.layer?.contents = NSImage(named: "reminder")
+        let acceptButton = NSButton(frame: window.frame)
+        acceptButton.target = self
+//        acceptButton.sendAction(on: .leftMouseUp)
+        acceptButton.action = #selector(PrefsViewController.userDrankButton)
+        acceptButton.isEnabled = true
+        
+        acceptButton.isBordered = true
+        acceptButton.bezelStyle = .shadowlessSquare
+        acceptButton.wantsLayer = true
+//        acceptButton.image =  NSImage(named: "buttonBg")
+//        12, 206, 107
+//        44, 246, 179
+        acceptButton.layer?.backgroundColor = .init(red: 4/255, green: 255/255, blue: 52/255, alpha: 1)
+        
+//        acceptButton.highlight(true)
+        acceptButton.frame = CGRect(x: Int(window.frame.width * 18/48), y: Int(windowHeight/4), width: Int(window.frame.width/4), height: Int(window.frame.height/10))
+        let acceptFont = NSFont(name: "Futura", size: 75)
+        acceptButton.font = acceptFont
+        acceptButton.title = "Chug"
+        acceptButton.updateLayer()
+        
+        
 //            textView.frame = CGRect(x: 0, y: screen.frame.midY, width: screen.visibleFrame.width, height: 400)
         let textView = NSTextView(frame: window.frame)
 //        textView.setFrameOrigin(window.frame.origin)
-        textView.frame = CGRect(x: 0, y: window.frame.height - (windowHeight * 1.12), width: window.frame.width, height: windowHeight)
+        textView.frame = CGRect(x: 0, y: window.frame.height - (windowHeight * 0.7), width: window.frame.width, height: windowHeight * 2/3)
         textView.usesRuler = false
         textView.string = Preferences.notifText
         textView.lowerBaseline(nil)
@@ -252,52 +295,52 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         textView.isSelectable = false
         textView.alignment = .center
         textView.isRichText = true
-        textView.font = .systemFont(ofSize: 235)
-//        textView.autoresizesSubviews = true
-        let acceptButton = NSButton(frame: window.frame)
-        acceptButton.isBordered = true
-        acceptButton.bezelStyle = .shadowlessSquare
-//        acceptButton.bezelStyle = .roundRect
-        acceptButton.wantsLayer = true
-//        acceptButton.image =  NSImage(named: "buttonBg")
-        acceptButton.layer?.backgroundColor = .init(red: 78/255, green: 233/255, blue: 30/255, alpha: 1)
-        acceptButton.font = .systemFont(ofSize: 75)
-//        acceptButton.highlight(true)
+        let textFont = NSFont(name: "Futura", size: 200)
+        textView.font = textFont
         
-        print(acceptButton.frame)
-        acceptButton.action = #selector(userDrankButton)
-        acceptButton.frame = CGRect(x: Int(window.frame.width/3), y: Int(windowHeight/4), width: Int(window.frame.width/3), height: Int(window.frame.height/10))
-        
-        acceptButton.title = "Chug"
-        acceptButton.updateLayer()
-        
-//        acceptButton.
         window.contentView?.addSubview(textView )
         window.contentView?.addSubview(acceptButton)
+        window.contentView?.addSubview(imageView)
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
-//        window.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
+        
+//        window.contentView.
+//        window.contentViewController = OverLayViewController(nibName: nil, bundle: nil)
+//        window.makeMain()
+        
+//        window.acceptsFirstResponder = true
+//        window.makeFirstResponder(window.firstResponder)
+//        window.acceptsFirstResponder = window.becomeFirstResponder()
+        
         window.level = .floating
+        window.makeKeyAndOrderFront(nil)
+        window.orderFrontRegardless()
+//        window.makeKey()
+//        window.order(.above, relativeTo: 3 )
+//        window.trackEvents(matching: .any, timeout: 1000, mode: .common, handler: #selector(PrefsViewController.userDrankButton))
+        
+        print("Is this window a floating panel: " , window.isFloatingPanel)
+//        window.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
+//        window.level = .floating
         window.isOpaque = true
         window.animationBehavior = .default
-//        NSApp.activate(ignoringOtherApps: true)
-        window.orderFrontRegardless()
-        window.makeKeyAndOrderFront(self)
 
 //        print("Floating: " , window.isFloatingPanel)
-
     }
     
+  
     
     @IBAction func increment(sender: NSStepper){
         reminderTimeField.stringValue = reminderStepperValue.stringValue
         reminderTimeValueHolder = reminderStepperValue.doubleValue
+        notificationPeriodChanged = 1
         setReminderTime()
         
     }
     @IBAction func setReminderTimeFromTextfield(_ sender: Any) {
         reminderStepperValue.doubleValue = Double(reminderTimeField.stringValue)!
         reminderTimeValueHolder = reminderStepperValue.doubleValue
+        notificationPeriodChanged = 1
         setReminderTime()
     }
     
@@ -321,6 +364,7 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         }
         
     }
+    //For some reason, setReminderTime needs to be called
     
     
     @IBAction func notificationTypeSwitcher(_ sender: NSButton) {
@@ -332,6 +376,18 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
     }
     
     @IBAction func sendTestNotif(_ sender: Any) {
+        
+        for window in NSApplication.shared.windows {
+            if(window.title == "Preferences"){
+                window.resignFirstResponder()
+                window.resignKey()
+                window.resignMain()
+//                window.orderOut(sender)
+                window.orderBack(sender)
+//                window.order(.below, relativeTo: 0)
+                //                window.close()
+            }
+        }
         sendNotif()
     }
     
@@ -356,9 +412,28 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         print("Prefs should be reloaded")
     }
     
-    override func viewWillDisappear() {
-        setReminderTime()
+    @objc func setReminderTime() {
+        
+        print(unitsControl.selectedItem!.title)
+        
+        let currUnit = unitsControl.selectedItem!.title
+        
+        switch currUnit {
+        case "hours":
+            Preferences.reminderTime = reminderTimeValueHolder * 3600
+        case "min":
+            Preferences.reminderTime = reminderTimeValueHolder * 60
+        default:
+            Preferences.reminderTime = reminderTimeValueHolder
+        }
+        //TODO: Change timer
+        setTimer(time: Preferences.reminderTime)
+        
     }
+    
+//    override func viewWillDisappear() {
+//        setReminderTime()
+//    }
 }
 
 

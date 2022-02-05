@@ -43,19 +43,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-//        Preferences.reminderTime = 25
-        
-        print(Preferences.reminderTime)
+//        print(Preferences.reminderTime)
         
         prefsViewController = PrefsViewController.freshController()
         waterViewController = WaterViewController.freshController()
         prefsViewController.setTimer(time: Preferences.reminderTime)
         
         Preferences.cupCount = 0
-        //TODO: Do I actually need this?
-//        waterViewController.setPrefs(myPrefs: Preferences)
-//        print("setting  preferences pane preferences" )
-//        PrefsViewController().setPrefs(myPrefs: Preferences)
         
         let showDockIcon = Preferences.showDockIcon
         
@@ -63,7 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             NSApp.setActivationPolicy(.regular)
         } else{
             NSApp.setActivationPolicy(.accessory)
-//            NSApp.menu
             NSApplication.shared.activate(ignoringOtherApps: true)
 
         }
@@ -78,12 +71,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // TODO: consider making it a menu?
         NSUserNotificationCenter.default.delegate = self
         
+        
         prefsViewController.updateResetTimer()
         
     }
-    
-    
-    
+
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
@@ -92,6 +84,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             return true
     }
     
+    func userNotificationCenter(_ center: NSUserNotificationCenter, didActivate notification: NSUserNotification) {
+//        print("Test test : " , notification.activationType)
+        switch (notification.activationType) {
+        case .actionButtonClicked:
+                print("Got chug")
+            Preferences.cupCount += 1
+            default:
+                break;
+        }
+    }
 
 }
 

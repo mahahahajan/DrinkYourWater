@@ -117,6 +117,7 @@ struct Preferences{
         Preferences.reminderTime = 60 * 60 * 2
         Preferences.resetTime = "7:00"
 //        Preferences.cupCount = 0 //Check if necessary
+        Preferences.notifTypeNum = 3
         Preferences.notifText = "Drink Your Water"
         Preferences.subText = "Reminder to drink your water"
         Preferences.showDockIcon = false
