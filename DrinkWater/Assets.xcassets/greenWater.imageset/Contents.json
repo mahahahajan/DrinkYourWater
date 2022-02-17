@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "bg.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "greenWater.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -17,10 +17,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "auto-scaling" : "auto",
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "template"
   }
 }

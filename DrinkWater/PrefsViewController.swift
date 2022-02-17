@@ -227,7 +227,8 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         self.view.wantsLayer = true;
         window.contentView?.wantsLayer = true;
         //window.backgroundColor = .init(red: 0, green: 173/255, blue: 1, alpha: 1)
-        window.backgroundColor = .init(red: 30/255, green: 180/255, blue: 233/255, alpha: 1)
+        //38, 154, 226
+        window.backgroundColor = .init(red: 38/255, green: 154/255, blue: 226/255, alpha: 1)
         
 //        window.backgroundColor = .init(patternImage: NSImage(named: NSImage.Name.init("reminder"))!)
         window.styleMask.remove(NSWindow.StyleMask.miniaturizable)
@@ -248,15 +249,15 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
 //             Set image property and replace name with your image file's name
         imageView.image = NSImage(named: "water-glass")
         if ( 0 <= Preferences.cupCount && Preferences.cupCount < 3){
-            imageView.image = NSImage(named: "smallWater")
+            imageView.image = NSImage(named: "redWater")
 //            window.contentView?.layer?.contents = NSImage(named: "smallWater")
         }
         else if ( 3 <= Preferences.cupCount && Preferences.cupCount < 7){
-            imageView.image = NSImage(named: "medWater")
+            imageView.image = NSImage(named: "yellowWater")
 //            window.contentView?.layer?.contents = NSImage(named: "smallWater")
         }
         else {
-            imageView.image = NSImage(named: "bigWater")
+            imageView.image = NSImage(named: "greenWater")
 //            window.contentView?.layer?.contents = NSImage(named: "smallWater")
         }
         
@@ -266,23 +267,28 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
 //        acceptButton.sendAction(on: .leftMouseUp)
         acceptButton.action = #selector(PrefsViewController.userDrankButton)
         acceptButton.isEnabled = true
-        
         acceptButton.isBordered = true
-        acceptButton.bezelStyle = .shadowlessSquare
         acceptButton.wantsLayer = true
 //        acceptButton.image =  NSImage(named: "buttonBg")
 //        12, 206, 107
 //        44, 246, 179
-        acceptButton.layer?.backgroundColor = .init(red: 4/255, green: 255/255, blue: 52/255, alpha: 1)
+        acceptButton.layer?.borderColor = .init(red: 223/255, green: 235/255, blue: 230/255, alpha: 1)
+//        acceptButton.layer?. = .init(red: 223/255, green: 235/255, blue: 230/255, alpha: 1)
+        acceptButton.layer?.borderWidth = 5
+//        acceptButton.layer?.backgroundColor = .init(red: 38/255, green: 154/255, blue: 255/255, alpha: 0)
         
 //        acceptButton.highlight(true)
-        acceptButton.frame = CGRect(x: Int(window.frame.width * 18/48), y: Int(windowHeight/4), width: Int(window.frame.width/4), height: Int(window.frame.height/10))
-        let acceptFont = NSFont(name: "Futura", size: 75)
+        acceptButton.frame = CGRect(x: Int(window.frame.width * 18/48), y: Int(windowHeight/5), width: Int(window.frame.width/4), height: Int(window.frame.height/9))
+        let acceptFont = NSFont(name: "Avenir Next Bold", size: 75)
         acceptButton.font = acceptFont
-        acceptButton.title = "Chug"
+        acceptButton.title = "Drink"
+//        #13304A
+        acceptButton.attributedTitle = NSAttributedString(string: "Drink", attributes: [NSAttributedString.Key.foregroundColor : NSColor.init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)])
+        acceptButton.layer?.cornerRadius = 35
+        acceptButton.layer?.masksToBounds = true
         acceptButton.updateLayer()
         
-//            textView.frame = CGRect(x: 0, y: screen.frame.midY, width: screen.visibleFrame.width, height: 400)
+        
         let textView = NSTextView(frame: window.frame)
 //        textView.setFrameOrigin(window.frame.origin)
         textView.frame = CGRect(x: 0, y: window.frame.height - (windowHeight * 0.7), width: window.frame.width, height: windowHeight * 2/3)
@@ -295,7 +301,7 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         textView.isSelectable = false
         textView.alignment = .center
         textView.isRichText = true
-        let textFont = NSFont(name: "Futura", size: 200)
+        let textFont = NSFont(name: "Avenir Next Bold", size: 200)
         textView.font = textFont
         
         window.contentView?.addSubview(textView )
@@ -409,6 +415,7 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         Preferences.resetToDefault()
         loadPrefs()
         print("Prefs should be reloaded")
+        setTimer(time: Preferences.reminderTime)
     }
     
     @objc func setReminderTime() {

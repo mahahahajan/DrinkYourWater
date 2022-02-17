@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         waterViewController = WaterViewController.freshController()
         prefsViewController.setTimer(time: Preferences.reminderTime)
         
-        Preferences.cupCount = 0
+//        Preferences.cupCount = 0
         
         let showDockIcon = Preferences.showDockIcon
         
