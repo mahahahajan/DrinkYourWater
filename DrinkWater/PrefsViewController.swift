@@ -61,15 +61,15 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         for window in NSApplication.shared.windows {
             if(window.title == "Preferences"){
                 notificationPeriodChanged = 0
-                window.level = .normal
-                window.update()
-//                window.close()
+//                window.level = .popUpMenu
+//                window.orderFrontRegardless()
+//                window.makeKeyAndOrderFront(nil)
             }
-            if(window.title == ""){
-                window.makeFirstResponder(window.firstResponder)
-                window.makeKeyAndOrderFront(nil)
-                window.makeKey()
-            }
+//            if(window.title == ""){
+//                window.makeFirstResponder(window.firstResponder)
+//                window.makeKeyAndOrderFront(nil)
+//                window.makeKey()
+//            }
         }
     }
     
@@ -168,7 +168,7 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
             reminderTimer.invalidate()
         }
         reminderTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(PrefsViewController.sendNotif), userInfo: nil, repeats: true)
-        RunLoop.main.add(reminderTimer, forMode: .common)
+        RunLoop.main.add(reminderTimer, forMode: .default)
         print("setTimer for ",  Preferences.reminderTime)
     }
     
@@ -202,26 +202,23 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         let action1 = NSUserNotificationAction(identifier: "action1", title: "Action 1")
         actions.append(action1)
         
-        notification.additionalActions = actions
+//        notification.additionalActions = actions
         
         notification.soundName = NSUserNotificationDefaultSoundName
-//        notification.deliveryRepeatInterval?.hour = 60
+//        notification.deliveryRepeatInterval? = Preferences.reminderTime // Not working need to test
         notification.contentImage = NSImage(byReferencingFile: "water-glass.png")
         // Manually display the notification
         let notificationCenter = NSUserNotificationCenter.default
     //        notificationCenter.obser
         notificationCenter.deliver(notification)
     }
-    
-    
-    
     @objc func closeOverlay(myWindow: NSWindow){
         myWindow.close()
     }
     
     func createOverlay(){
         
-        let window = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 0, height: 0), styleMask: [.borderless, .titled, .closable], backing: .buffered, defer: false)
+        let window = MyOverlay(contentRect: NSRect(x: 0, y: 0, width: 0, height: 0), styleMask: [.borderless, .titled, .closable], backing: .buffered, defer: false)
         if(overlayWindow != nil){
             closeOverlay(myWindow: overlayWindow)
         }
@@ -241,6 +238,10 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         //THIS LINE STOPS THE CRASH ON CLOSE
         window.isReleasedWhenClosed = false
         window.setFrame(NSRect(x:0, y: 0, width: screen.visibleFrame.width, height: screen.visibleFrame.height ), display: true, animate: true)
+//        window.canBecomeKey = true
+//        window.collectionBehavior = [.canJoinAllSpaces, .moveToActiveSpace]
+        
+        
         
         let imageView = NSImageView(frame: window.frame)
         imageView.frame = CGRect(x: Int(window.frame.width * 17/48), y: Int(window.frame.height * 3/12), width: 450, height: 450)
@@ -281,7 +282,6 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         acceptButton.title = "Chug"
         acceptButton.updateLayer()
         
-        
 //            textView.frame = CGRect(x: 0, y: screen.frame.midY, width: screen.visibleFrame.width, height: 400)
         let textView = NSTextView(frame: window.frame)
 //        textView.setFrameOrigin(window.frame.origin)
@@ -304,28 +304,27 @@ class PrefsViewController: NSViewController, NSWindowDelegate {
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         
-//        window.contentView.
-//        window.contentViewController = OverLayViewController(nibName: nil, bundle: nil)
+        window.isFloatingPanel = true
+        window.level = .floating
+        
+//        NSApp.activate(ignoringOtherApps: true)
+        window.orderFrontRegardless()
+        window.makeKey()
+
+        window.makeKeyAndOrderFront(window)
+        print("Main: " , window.canBecomeMain)
+//        window.makeMain()
+        print("Is it actually main: ", window.isMainWindow)
+//        NSApp.activate(ignoringOtherApps: true)
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        window.becomeMain()
+        
 //        window.makeMain()
         
-//        window.acceptsFirstResponder = true
-//        window.makeFirstResponder(window.firstResponder)
-//        window.acceptsFirstResponder = window.becomeFirstResponder()
-        
-        window.level = .floating
-        window.makeKeyAndOrderFront(nil)
-        window.orderFrontRegardless()
-//        window.makeKey()
-//        window.order(.above, relativeTo: 3 )
-//        window.trackEvents(matching: .any, timeout: 1000, mode: .common, handler: #selector(PrefsViewController.userDrankButton))
-        
-        print("Is this window a floating panel: " , window.isFloatingPanel)
-//        window.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
-//        window.level = .floating
         window.isOpaque = true
         window.animationBehavior = .default
-
-//        print("Floating: " , window.isFloatingPanel)
+        
+        
     }
     
   

@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		F216522627A0BF8E0037653A /* MySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F216522527A0BF8E0037653A /* MySettings.swift */; };
 		F2899ACE259BF7BD002D679B /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2899ACD259BF7BD002D679B /* PrefsViewController.swift */; };
-		F2B319D827ACBB7A00BEE0D6 /* OverLayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B319D727ACBB7A00BEE0D6 /* OverLayViewController.swift */; };
+		F2921D7827BDEA2E00B5EA95 /* OverLayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2921D7727BDEA2E00B5EA95 /* OverLayViewController.swift */; };
 		F2D005B8259AEFA700F9D985 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005B7259AEFA700F9D985 /* AppDelegate.swift */; };
 		F2D005BC259AEFA800F9D985 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2D005BB259AEFA800F9D985 /* Assets.xcassets */; };
 		F2D005BF259AEFA800F9D985 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2D005BD259AEFA800F9D985 /* Main.storyboard */; };
 		F2D005CB259AEFA900F9D985 /* DrinkWaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005CA259AEFA900F9D985 /* DrinkWaterTests.swift */; };
 		F2D005D6259AEFA900F9D985 /* DrinkWaterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005D5259AEFA900F9D985 /* DrinkWaterUITests.swift */; };
 		F2D005ED259B0B8600F9D985 /* WaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D005EC259B0B8600F9D985 /* WaterViewController.swift */; };
+		F2FA834627BCB8FB0075299E /* MyOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FA834527BCB8FB0075299E /* MyOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 /* Begin PBXFileReference section */
 		F216522527A0BF8E0037653A /* MySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySettings.swift; sourceTree = "<group>"; };
 		F2899ACD259BF7BD002D679B /* PrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
-		F2B319D727ACBB7A00BEE0D6 /* OverLayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverLayViewController.swift; sourceTree = SOURCE_ROOT; };
+		F2921D7727BDEA2E00B5EA95 /* OverLayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverLayViewController.swift; sourceTree = "<group>"; };
 		F2D005B4259AEFA700F9D985 /* DrinkWater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkWater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D005B7259AEFA700F9D985 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2D005BB259AEFA800F9D985 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		F2D005D5259AEFA900F9D985 /* DrinkWaterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkWaterUITests.swift; sourceTree = "<group>"; };
 		F2D005D7259AEFA900F9D985 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2D005EC259B0B8600F9D985 /* WaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewController.swift; sourceTree = "<group>"; };
+		F2FA834527BCB8FB0075299E /* MyOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D005B7259AEFA700F9D985 /* AppDelegate.swift */,
-				F2B319D727ACBB7A00BEE0D6 /* OverLayViewController.swift */,
+				F2921D7727BDEA2E00B5EA95 /* OverLayViewController.swift */,
 				F2D005EC259B0B8600F9D985 /* WaterViewController.swift */,
 				F2899ACD259BF7BD002D679B /* PrefsViewController.swift */,
 				F2D005BB259AEFA800F9D985 /* Assets.xcassets */,
@@ -111,6 +113,7 @@
 				F2D005C0259AEFA800F9D985 /* Info.plist */,
 				F2D005C1259AEFA800F9D985 /* DrinkWater.entitlements */,
 				F216522527A0BF8E0037653A /* MySettings.swift */,
+				F2FA834527BCB8FB0075299E /* MyOverlay.swift */,
 			);
 			path = DrinkWater;
 			sourceTree = "<group>";
@@ -262,11 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2FA834627BCB8FB0075299E /* MyOverlay.swift in Sources */,
 				F2D005B8259AEFA700F9D985 /* AppDelegate.swift in Sources */,
 				F2D005ED259B0B8600F9D985 /* WaterViewController.swift in Sources */,
 				F216522627A0BF8E0037653A /* MySettings.swift in Sources */,
 				F2899ACE259BF7BD002D679B /* PrefsViewController.swift in Sources */,
-				F2B319D827ACBB7A00BEE0D6 /* OverLayViewController.swift in Sources */,
+				F2921D7827BDEA2E00B5EA95 /* OverLayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +438,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DrinkWater/DrinkWater.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0;
@@ -446,6 +450,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.the.pulk.DrinkWater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -458,7 +463,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DrinkWater/DrinkWater.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1.0;
@@ -470,6 +475,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.the.pulk.DrinkWater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

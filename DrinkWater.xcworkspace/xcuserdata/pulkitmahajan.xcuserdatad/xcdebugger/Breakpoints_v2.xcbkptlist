@@ -14,9 +14,9 @@
             filePath = "DrinkWater/PrefsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "setReminderTime()"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "freshController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,10 +30,10 @@
             filePath = "DrinkWater/PrefsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
-            landmarkName = "PrefsViewController"
-            landmarkType = "3">
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "updateReminderTimeField(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,9 +46,9 @@
             filePath = "DrinkWater/PrefsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
-            landmarkName = "sendTestNotif(_:)"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "restoreDefaultsAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
